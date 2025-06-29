@@ -1,0 +1,118 @@
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.class{
+    flex: 1;
+}
+
+.navbar{
+    height: 5rem;
+    background-color: white;
+}
+
+.fa-solid {
+    color: #fe424d;
+    font-size: 2rem;
+}
+
+.nav-link{
+    color: #222222 !important;
+}
+
+
+.f-info{
+    height: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #ebebeb;
+    justify-content: space-evenly;
+  
+}
+.f-info-link a{
+    text-decoration : none;
+    color: #222222 !important;
+}
+
+.f-info-link a:hover{
+    text-decoration : underline ;
+}
+
+.fa-brands{
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.listing-card{
+    border: none !important;
+    margin-bottom: 0.5rem;
+}
+
+.card-img-top  {
+    border-radius: 1rem !important;
+    width:100% !important;
+    object-fit: cover !important;
+}
+
+.card-body,.card-text{
+    padding: 0 !important;
+}
+
+.link{
+    text-decoration: none;
+      color: #222222 ;
+}
+
+.card-img-overlay{
+    opacity: 0;
+}
+
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+    cursor:pointer;
+}
+
+.btn{
+    background-color: #fe424d  !important;
+    border: none !important;
+}
+
+.card{
+    width: 20rem;
+}
+
+.card-text{
+    margin: 0PX;
+}
+
+.btn-val{
+    display: flex;
+    margin-left: 32rem;
+    gap: 6rem;
+}
+
+.bttn a{
+    text-decoration: none;
+    color: #222222;
+  
+}
+.bttn{
+      background-color: #fe424d ;
+        border: none;
+        width  : 50px;
+        border-radius: 5px;
+}
+
+.bot{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.fa-user-plus{
+    font-size: medium;
+}
