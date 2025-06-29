@@ -92,7 +92,7 @@ async function main() {
 
 app.get("/", (req, res) => {
     console.log("working");
-    res.send("add in url /listing")
+     res.redirect("/listing")
 });
 
 
