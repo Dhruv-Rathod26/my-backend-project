@@ -43,6 +43,7 @@ PORT=3000
 # 4. Start the development server
 node app.js
 
+# 🙋‍♂️ Author
 Created by Dhruv — for learning and improving backend development skills using MVC architecture.
 
 
