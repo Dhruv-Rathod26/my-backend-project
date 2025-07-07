@@ -1,112 +1,77 @@
 <% layout('layout/boilerplate') -%>
 
-  <body>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="card mb-4 col-12 col-sm-10 col-md-8 col-lg-6 listing-card">
 
-    <div class="row">
+        <h4><%= list.title %></h4>
+        <img src="<%= list.image.url %>" class="card-img-top img-fluid" alt="listing img" style="height: auto; max-width: 100%;">
 
+        <div class="card-body">
+          <p>Owner by <%= list.owner.username %>.</p>
+          <p class="card-text"><%= list.description %></p>
+          <p class="card-text">&#8377 <%= list.price.toLocaleString("en-IN") %></p>
+          <p class="card-text"><%= list.location %>. <%= list.country %></p>
 
-
-      <div class="card mb-2 col-4 offset-4 listing-card">
-
-        <h4>   <%= list.title%></h4>
-        <img src="<%= list.image.url %>" class="card-img-top" alt="listing img" style="height: 18rem; width: 40rem;">
-
-        <div class="card-body ">
-             owner by  <%= list.owner.username%>.
-          </p>
-          <p class="card-text">
-            <%= list.description%>.
-          </p>
-          <p class="card-text">&#8377 <%= list.price.toLocaleString("en-IN")%>
-          </p>
-          <p class="card-text">
-            <%= list.location%>. <%= list.country%>
-          </p>
-          <p class="card-text">
-            <%= list.country%>.
-          </p>
-
-          <% if(usserinfo  && usserinfo._id.equals(list.owner._id)) { %>
-            <div class="bot">
-            <button class="bttn"><a href="/listing/<%= list._id %>/edit">edit</a></button>
-
-            <form method="post" action="/listing/<%= list._id %>?_method=delete">
-              <button class="sing" style="background-color:  rgb(79, 79, 79);">Delete this </button>
-          </div>
-       <%   }  %>
-          
-          </form>
-
+          <% if(usserinfo && usserinfo._id.equals(list.owner._id)) { %>
+            <div class="bot d-flex gap-2 flex-wrap">
+              <a href="/listing/<%= list._id %>/edit" class="btn btn-warning">Edit</a>
+              <form method="post" action="/listing/<%= list._id %>?_method=delete">
+                <button class="btn btn-dark">Delete this</button>
+              </form>
+            </div>
+          <% } %>
         </div>
 
-       <hr>
-   
-         <div >
-          <% if(usserinfo) { %>
-          <h4> Leave the Review</h4>
-        <form method="post" action="/listing/<%= list._id %>/review" class="needs-validation" novalidate>
-          <div class="mb-3 mt-2"  >
-             
-       <fieldset class="starability-coinFlip">
-  <legend>First rating:</legend>
-  <input type="radio" id="first-rate1" name="review[rating]" value="1" checked  />
-  <label for="first-rate1" title="Terrible">1 star</label>
-  <input type="radio" id="first-rate2" name="review[rating]" value="2" />
-  <label for="first-rate2" title="Not good">2 stars</label>
-  <input type="radio" id="first-rate3" name="review[rating]" value="3" />
-  <label for="first-rate3" title="Average">3 stars</label>
-  <input type="radio" id="first-rate4" name="review[rating]" value="4" />
-  <label for="first-rate4" title="Very good">4 stars</label>
-  <input type="radio" id="first-rate5" name="review[rating]" value="5" />
-  <label for="first-rate5" title="Amazing">5 stars</label>
-</fieldset>
+        <hr>
 
-          </div>
+        <% if(usserinfo) { %>
+          <div class="mt-3">
+            <h4>Leave a Review</h4>
+            <form method="post" action="/listing/<%= list._id %>/review" class="needs-validation" novalidate>
+              <fieldset class="starability-coinFlip">
+                <legend>First rating:</legend>
+                <% for (let i = 1; i <= 5; i++) { %>
+                  <input type="radio" id="first-rate<%= i %>" name="review[rating]" value="<%= i %>" <%= i === 1 ? 'checked' : '' %> />
+                  <label for="first-rate<%= i %>" title="<%= i %> star"><%= i %> star</label>
+                <% } %>
+              </fieldset>
 
-         <div class="mb-3 mt-2">
-               <label for="comment" class="form-label">comment</label>
-                        <textarea type="text"  placeholder="enetr a comment" name="review[comment]" class="form-control"  required></textarea>
-                           <div class="invalid-feedback">
-      Please enter a some comment
-    </div>
-          </div>
-          <button class=" btn-outline-dark">submite</button>
+              <div class="mb-3 mt-3">
+                <label for="comment" class="form-label">Comment</label>
+                <textarea name="review[comment]" class="form-control" placeholder="Enter a comment" required></textarea>
+                <div class="invalid-feedback">Please enter a comment.</div>
+              </div>
+
+              <button class="btn btn-outline-dark">Submit</button>
             </form>
             <hr>
-              <% } %>
-         
-            <p><b>All reviews</b></p>
-          
-            <div class="row ">
+          </div>
+        <% } %>
+
+        <div class="mt-4">
+          <p><b>All Reviews</b></p>
+          <div class="row">
             <% for(let review of list.reviews) { %>
-                 
-              <div class="card col-5 mb-3 ms-4">
-  <div class="card-body">
-    <h5 class="card-title">@<%= review.author.username   %></h5>
-    <p class="card-text"> <%= review.comment %></p>
+              <div class="card col-12 col-md-5 mb-3 ms-md-4">
+                <div class="card-body">
+                  <h5 class="card-title">@<%= review.author.username %></h5>
+                  <p class="card-text"><%= review.comment %></p>
+                  <p class="starability-result" data-rating="<%= review.rating %>"></p>
 
-       <p class="starability-result" data-rating="<%= review.rating %>">
- 
-  </p>
-
-
-  <% if(usserinfo  && usserinfo._id.equals(review.author._id)) { %>
-
-     <form method="post" action="/listing/<%=list._id%>/review/<%=review._id %>?_method=Delete">
-
-      <button class=" btn-outline-dark mb-2 mt-2" >delete</button>
-     </form>
-         <%    } %>
-  </div>
-</div>
-           <%    } %>
-             
-</div>
-
+                  <% if(usserinfo && usserinfo._id.equals(review.author._id)) { %>
+                    <form method="post" action="/listing/<%= list._id %>/review/<%= review._id %>?_method=Delete">
+                      <button class="btn btn-outline-dark mb-2 mt-2">Delete</button>
+                    </form>
+                  <% } %>
+                </div>
+              </div>
+            <% } %>
+          </div>
         </div>
 
-      
-         </div>
-      </div>    
+      </div>
     </div>
-  </body>
+  </div>
+</body>
