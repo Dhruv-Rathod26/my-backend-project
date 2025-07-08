@@ -24,7 +24,7 @@ const userroute = require("./routes/users.js");
 const passport = require("passport");
 
 const ExpressError = require("./utility/ExpressError.js");
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const store = MongoStore.create({
     mongoUrl: dburl,
